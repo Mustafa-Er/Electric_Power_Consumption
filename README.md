@@ -51,10 +51,13 @@ TimeSeriesSplit with 5 folds
 📈 Results (MAE Comparison)
 Mean Absolute Error (MAE) was used to evaluate performance across folds:
 
+![image](https://github.com/user-attachments/assets/a0fab91c-c078-4126-bed8-d604870e74be)
+
+
 
 📊 Observations:
 LSTM consistently performed better than the other models
 
-XGBoost had stable but slightly higher error
+XGBoost had stable but slightly higher error than LSTM model
 
 Fully connected network lagged behind, especially in earlier folds
