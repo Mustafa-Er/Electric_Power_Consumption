@@ -8,6 +8,7 @@ Total records: 2,075,259 (1-minute intervals)
 
 Source: A single household with detailed sub-metering and voltage data
 
+
 🔑 Key Features:
 Global_active_power: Total active power used (kW)
 
@@ -21,6 +22,7 @@ Time-based Features: Hour, day of week/month/year, etc.
 
 Weather & Solar Features: temp, rhum, prcp, turbidity, sun_position, etc.
 
+
 🎯 Problem Statement
 📌 Objective: Predict the value of Global_active_power 24 hours into the future based on past trends and contextual features.
 
@@ -29,6 +31,7 @@ python
 Kopyala
 Düzenle
 df['Target'] = df['Global_active_power'].shift(-24)  # 24 hours ahead (1 value per hour)
+
 🧪 Modeling Approach
 I used three different models for comparison:
 
