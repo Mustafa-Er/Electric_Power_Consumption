@@ -1,37 +1,60 @@
-I am trying to predict after 24 hours Global_active_power feature
+🔌 Household Energy Consumption Forecasting (24-Hour Prediction)
+This project focuses on predicting household energy consumption 24 hours ahead using time series data collected from a home in Sceaux, France (near Paris). The goal is to forecast the "Global Active Power" for the next day based on historical electrical and environmental data.
+
+📦 Dataset Overview
+Time span: December 2006 – November 2010 (47 months)
+
+Total records: 2,075,259 (1-minute intervals)
+
+Source: A single household with detailed sub-metering and voltage data
+
+🔑 Key Features:
+Global_active_power: Total active power used (kW)
+
+Global_reactive_power: Reactive power (kW)
+
+Voltage: Line voltage (V)
+
+Sub_metering_1/2/3: Energy use in kitchen, laundry room, water heater/AC
+
+Time-based Features: Hour, day of week/month/year, etc.
+
+Weather & Solar Features: temp, rhum, prcp, turbidity, sun_position, etc.
+
+🎯 Problem Statement
+📌 Objective: Predict the value of Global_active_power 24 hours into the future based on past trends and contextual features.
+
+Target definition:
+python
+Kopyala
+Düzenle
+df['Target'] = df['Global_active_power'].shift(-24)  # 24 hours ahead (1 value per hour)
+🧪 Modeling Approach
+I used three different models for comparison:
+
+XGBoost
+
+Fully Connected Neural Network
+
+LSTM (Long Short-Term Memory) – using a window of the previous 24 hours
+
+🔍 Feature Engineering:
+Dimensionality reduction with PCA (retaining 99% variance → 3 components)
+
+Final feature set included:
+
+Global_active_power, Hour, Day_ofweek, Day_ofmonth, Day_ofyear, Week_ofyear, Month, Quarter, Year, PCA_1, PCA_2, PCA_3
+
+🧪 Cross-Validation:
+TimeSeriesSplit with 5 folds
+
+📈 Results (MAE Comparison)
+Mean Absolute Error (MAE) was used to evaluate performance across folds:
 
 
-About Dataset
+📊 Observations:
+LSTM consistently performed better than the other models
 
-  This dataset contains 2075259 measurements collected between December 2006 and November 2010 (47 months) in a house located in Sceaux (7 km from Paris, France).
-  
-  1.date: date in dd/mm/yyyy format
-  
-  2.time: time in hh:mm:ss format
-  
-  3.global_active_power: household global minute average active power (in kilowatts)
-  
-  4.global_reactive_power: household global minute average reactive power (in kilowatts)
-  
-  5th voltage: minute averaged voltage (in volts)
-  
-  6.global_intensity: household global minute-averaged current intensity (in amperes)
-  
-  7.sub_metering_1: Energy sub-metering number 1 (in watt-hours of active energy). It mainly corresponds to the kitchen, which includes a dishwasher, an oven and a microwave oven (hobs are gas, not electric).
-  
-  8.sub_metering_2: Energy submetering number 2 (in watt-hours of active energy). Corresponds to the laundry room containing a washing machine, a tumble dryer, a refrigerator and a light.
-  
-  9.sub_metering_3: Energy submetering number 3 (in watt-hours of active energy). Corresponds to an electric water heater and an air conditioner.
-  
-  Explanations of Some Terms:
-  
-  Active Power: The useful, useful power drawn from the network by the receivers in electrical circuits is called Active Power. For example; Electric current is transformed into heat in heaters, into heat in heaters, into motion in motors, and into light in lighting fixtures.
-  
-  Reactive Power: In electrical circuits, the power that is drawn from the source and then returned to the source is called Reactive Power. It provides the formation of the magnetic field in motors and coil circuits and the required electric field in capacitors. The power drawn from the source for the formation of these fields is returned to the source again as the fields disappear. Reactive power is also known as blind power because it has no equivalent in receivers. If necessary precautions are not taken, they occupy unnecessary capacity in the network. Reactive power is indicated by the VAR unit, which is the abbreviation of the words Volt Ampere Reactive.
-  
-  In short Active, Reactive Power
-  
-  The power dissipated by a load is called active power. Active power is symbolized by the letter P.
-  
-  Power that is only absorbed and returned in the load due to its reactive properties is called reactive power.
+XGBoost had stable but slightly higher error
 
+Fully connected network lagged behind, especially in earlier folds
