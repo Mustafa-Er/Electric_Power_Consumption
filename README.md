@@ -27,9 +27,7 @@ Weather & Solar Features: temp, rhum, prcp, turbidity, sun_position, etc.
 📌 Objective: Predict the value of Global_active_power 24 hours into the future based on past trends and contextual features.
 
 Target definition:
-python
-Kopyala
-Düzenle
+
 df['Target'] = df['Global_active_power'].shift(-24)  # 24 hours ahead (1 value per hour)
 
 🧪 Modeling Approach
